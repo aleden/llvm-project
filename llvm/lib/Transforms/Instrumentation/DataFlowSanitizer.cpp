@@ -819,6 +819,13 @@ bool DataFlowSanitizer::runOnModule(Module &M) {
     }
   }
 
+  for (Module::ifunc_iterator i = M.ifunc_begin(), e = M.ifunc_end(); i != e;) {
+    GlobalIFunc *GI = &*i;
+    ++i;
+
+    addGlobalNamePrefix(GI);
+  }
+
   ReadOnlyNoneAttrs.addAttribute(Attribute::ReadOnly)
       .addAttribute(Attribute::ReadNone);
 
