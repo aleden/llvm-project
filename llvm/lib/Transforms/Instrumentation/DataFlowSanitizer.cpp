@@ -789,7 +789,8 @@ bool DataFlowSanitizer::runOnModule(Module &M) {
         &i != DFSanUnimplementedFn.getCallee()->stripPointerCasts() &&
         &i != DFSanSetLabelFn.getCallee()->stripPointerCasts() &&
         &i != DFSanNonzeroLabelFn.getCallee()->stripPointerCasts() &&
-        &i != DFSanVarargWrapperFn.getCallee()->stripPointerCasts())
+        &i != DFSanVarargWrapperFn.getCallee()->stripPointerCasts() &&
+        !ABIList.isIn(i, "skip"))
       FnsToInstrument.push_back(&i);
   }
 
