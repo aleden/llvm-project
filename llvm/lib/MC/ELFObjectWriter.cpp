@@ -1284,6 +1284,7 @@ void ELFObjectWriter::executePostLayoutBinding(MCAssembler &Asm,
     Alias->setExternal(Symbol.isExternal());
     Alias->setBinding(Symbol.getBinding());
     Alias->setOther(Symbol.getOther());
+    Alias->setSize(Symbol.getSize());
 
     if (!Symbol.isUndefined() && !Rest.startswith("@@@"))
       continue;
