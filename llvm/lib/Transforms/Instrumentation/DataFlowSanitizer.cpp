@@ -636,8 +636,13 @@ void DataFlowSanitizer::addGlobalNamePrefix(GlobalValue *GV) {
   std::string SearchStr = ".symver " + GVName + ",";
   size_t Pos = Asm.find(SearchStr);
   if (Pos != std::string::npos) {
-    Asm.replace(Pos, SearchStr.size(),
-                ".symver " + Prefix + GVName + "," + Prefix);
+    do {
+      Asm.replace(Pos, SearchStr.size(),
+                  ".symver " + Prefix + GVName + "," + Prefix);
+
+      Pos = Asm.find(SearchStr);
+    } while (Pos != std::string::npos);
+
     GV->getParent()->setModuleInlineAsm(Asm);
   }
 }
