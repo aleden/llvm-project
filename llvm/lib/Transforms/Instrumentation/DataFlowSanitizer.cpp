@@ -624,6 +624,8 @@ DataFlowSanitizer::WrapperKind DataFlowSanitizer::getWrapperKind(Function *F) {
 }
 
 void DataFlowSanitizer::addGlobalNamePrefix(GlobalValue *GV) {
+  return;
+
   std::string GVName = GV->getName(), Prefix = "dfs$";
   GV->setName(Prefix + GVName);
 
